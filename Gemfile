@@ -14,6 +14,9 @@ group :test do
   end
 end
 
+# for testing https://github.com/iloveitaly/spree_sale_products
+# both extensions modify price assignment behaviour
+# gem 'spree_sale_products', :path => '../spree_sale_products'
 gem 'spree', '~> 1.1.3'
 
 gemspec
