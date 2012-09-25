@@ -2,7 +2,6 @@ Spree::Admin::VariantsController.class_eval do
   # this loads the variant for the master variant volume price editing
   def load_resource_instance
     parent
-
     if new_actions.include?(params[:action].to_sym)
       build_resource
     elsif params[:id]
@@ -10,9 +9,15 @@ Spree::Admin::VariantsController.class_eval do
     end
   end
 
+  def edit
+    @variant.volume_prices.build
+    #TODO: This creates empty row, which is passed and attempted to validate/save
+    super
+  end
+  
   def volume_prices
     @product = @variant.product
-    @variant.volume_prices.build
+    #@variant.volume_prices.build #TODO: This creates empty row, which is passed and attempted to validate/save
   end
 
   def location_after_save
