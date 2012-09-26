@@ -1,15 +1,16 @@
 <% display_percent ||= false %>
 <% if product.price > 0 and product.master.volume_prices.present? %>
 <div id="bulk-discount">
-  <h6><%= t(:bulk_discount) %></h6>
+  <h6><%= t(:wholesale_pricing) %></h6>
   <table>
 	<% product.master.volume_prices.each do |v| %>
 	<%= content_tag(:tr) do %>
-	<%= content_tag :td, (v.open_ended? ? v.range : "#{v.range.to_range.begin}–#{v.range.to_range.end}") %>
+  <%= content_tag :td, v.name %>
+	<%= content_tag :td, (v.open_ended? ? v.range.delete('()') : "#{v.range.to_range.begin}–#{v.range.to_range.end}") %>
 	<%= content_tag :td, number_to_currency(v.amount)%>
 	<%= content_tag(:td, "%i%" % ((1.0 - v.amount / product.master.price) * 100.0).round) if display_percent %>
 	<% end %>
-	<% end %>  	
+	<% end %>
   </table>
 </div>
 <%end%>
